@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { uuid } from "uuidv4";
-import api from "../api/server";
+
 import "./App.css";
+import api from "../api/server";
+
 import Header from "./Header";
 import AddContact from "./AddContact";
 import ContactList from "./ContactList";
@@ -57,15 +59,7 @@ function App() {
 
   useEffect(() => {
 
-    // const retriveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    // if (retriveContacts) setContacts(retriveContacts);
-
-    const getAllCOntacts = async () => {
-      const allContacts = await retrieveContacts();
-      if (allContacts) setContacts(allContacts);
-    };
-
-    getAllCOntacts();
+    console.log('useEffect')
   }, []);
 
   useEffect(() => {
@@ -91,11 +85,13 @@ function App() {
               />
             )}
           />
-
+          
           <Route
             path="/add"
             render={(props) => (
-              <AddContact {...props} addContactHandler={addContactHandler} />
+              <AddContact 
+              {...props} 
+              addContactHandler={addContactHandler} />
             )}
           />
 

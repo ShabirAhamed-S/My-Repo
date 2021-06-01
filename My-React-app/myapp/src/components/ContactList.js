@@ -10,7 +10,7 @@ const ContactList = (props) => {
     props.getContactId(id);
   };
 
-  // Delete Contacts
+  // Card Contacts
   const renderContactList = props.contacts.map((contact) => {
     return (
       <ContactCard
@@ -29,6 +29,18 @@ const ContactList = (props) => {
         <button class="ui right floated button blue">Add Contact</button>
         </Link>
       </h2>
+      <div className='ui search icon'>
+      <div className='ui input icon'>
+        <input
+        ref={inputEl}
+        type='text'
+        placeholder="Search Contacts"
+        className="prompt"
+         />
+         <i className='search icon'></i>
+
+      </div>
+      </div>
       <div className="ui celled list">{renderContactList}</div>
     </div>
   );
