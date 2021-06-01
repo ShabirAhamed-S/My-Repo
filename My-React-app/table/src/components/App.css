@@ -12,6 +12,19 @@
   padding: 20px;
   font-size: calc(10px + 2vmin);
 }
+
+.input {
+  content: center;
+  margin: 10px;
+  border-radius: 15px;
+  height:40px;
+  width: 40%;
+  pointer-events: fill;
+}
+
+.input:hover{
+  padding: 5px;
+}
 th {
   padding: 15px;
 }
