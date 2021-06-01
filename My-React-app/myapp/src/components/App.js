@@ -10,14 +10,21 @@ import AddContact from "./AddContact";
 import ContactList from "./ContactList";
 import ContactDetail from "./ContactDetail";
 import EditContact from "./EditContact";
+import LoginForm from "./LoginForm";
 
 function App() {
   // const LOCAL_STORAGE_KEY = "contacts";
+
   const [contacts, setContacts] = useState([]);
+
+  const [searchText, setSearchText] = useState('')
+
+  const [searchResults, setSearchResults] = useState([])
 
   //RetrieveContacts
   const retrieveContacts = async () => {
     const response = await api.get("/contacts");
+    console.log(contacts)
     return response.data;
   };
 
@@ -26,6 +33,8 @@ function App() {
     console.log(contact);
     const request = {
       id: uuid(),
+      data: contacts.Data,
+      json: contacts.json,
       ...contact,
     };
 
@@ -37,8 +46,7 @@ function App() {
   // Update Contacts
   const updateContactHandler = async (contact) => {
     const response = await api.put(`/contacts/${contact.id}`, contact);
-    const { id, 
-      // name, email 
+    const { id,
     } = response.data;
     setContacts(
       contacts.map((contact) => {
@@ -57,10 +65,42 @@ function App() {
     setContacts(newContactList);
   };
 
+  // Search Contact 
+  const searchHandler = (searchText) => {
+    setSearchText(searchText)
+    if (searchText !== '') {
+      const newContactList = contacts.filter((contact) => {
+        return Object.values(contact).join(' ').toLocaleLowerCase().includes(searchText.toLocaleLowerCase())
+      })
+      setSearchResults(newContactList)
+    }
+    else {
+      setSearchResults(contacts)
+    }
+  }
+
   useEffect(() => {
 
-    console.log('useEffect')
+    // const retriveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    // if (retriveContacts) setContacts(retriveContacts);
+
+    const getAllCOntacts = async () => {
+      const allContacts = await retrieveContacts();
+      if (allContacts) setContacts(allContacts);
+    };
+
+    getAllCOntacts();
   }, []);
+
+  // Login
+  const handleSubmit = data => {
+    contacts.Data = data;
+    const json = JSON.stringify(data, null, 4);
+    console.clear();
+    contacts.json = json
+    console.log(json)
+    console.log(contacts.data);
+  };
 
   useEffect(() => {
 
@@ -75,23 +115,33 @@ function App() {
 
         <Switch>
           <Route
-            path="/"
+            path='/'
             exact
-            render={(props) => (
-              <ContactList
-                {...props}
-                contacts={contacts}
-                getContactId={removeContactHandler}
+            render={() => (
+              <LoginForm
+                onSubmit={handleSubmit}
               />
             )}
           />
-          
+          <Route
+            path="/contactlist"
+            render={(props) => (
+              <ContactList
+                {...props}
+                contacts={searchText.length < 1 ? contacts : searchResults}
+                getContactId={removeContactHandler}
+                term={searchText}
+                searchKeyword={searchHandler}
+              />
+            )}
+          />
+
           <Route
             path="/add"
             render={(props) => (
-              <AddContact 
-              {...props} 
-              addContactHandler={addContactHandler} />
+              <AddContact
+                {...props}
+                addContactHandler={addContactHandler} />
             )}
           />
 
@@ -109,7 +159,7 @@ function App() {
 
         </Switch>
       </Router>
-      
+
     </div>
   );
 }

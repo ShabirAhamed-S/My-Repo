@@ -1,3 +1,24 @@
 {
-  "contacts": []
+  "contacts": [
+    {
+      "id": "9e6bc314-81ab-4973-814d-dc97253657d6",
+      "name": "shabir",
+      "email": "shabir@gmail.com"
+    },
+    {
+      "id": "52865664-fa6c-4d0f-95fa-9e1fbc5f4db1",
+      "name": "snkjba",
+      "email": "a,khab"
+    },
+    {
+      "id": "ce57c270-6017-444f-997a-766289f7bc30",
+      "name": "s.kjahjba",
+      "email": "ajuytfhsj"
+    },
+    {
+      "id": "344191ae-a55a-4b8e-9396-c778d055f9e8",
+      "name": "snkbhsb",
+      "email": ",bhghfhf"
+    }
+  ]
 }

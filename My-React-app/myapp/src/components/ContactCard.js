@@ -6,12 +6,12 @@ const ContactCard = (props) => {
   const { id, name, email } = props.contact;
   return (
     <div className="item">
-      <img className="avatar image" src={user} alt="user" width="55px"/>
+      <img className="avatar image" src={user} alt="user" width="55px" />
       <div className="content">
         <Link to={
           // Goto contact id details
-            { pathname: `/contact/${id}`, state: { contact: props.contact } }
-          }>
+          { pathname: `/contact/${id}`, state: { contact: props.contact } }
+        }>
           <div className="ui header">{name}</div>
           <div>{email}</div>
         </Link>
@@ -26,7 +26,7 @@ const ContactCard = (props) => {
       <Link to={
         // Goto Edit Contacts
         { pathname: `/edit`, state: { contact: props.contact } }
-        }>
+      }>
         <i
           className="edit alternate outline icon"
           style={

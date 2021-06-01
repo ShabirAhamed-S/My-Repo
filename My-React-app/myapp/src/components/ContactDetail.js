@@ -9,7 +9,7 @@ const ContactDetail = (props) => {
   return (
     <div className="main">
       <div className="center-div">
-        <Link to="/">
+        <Link to="/contactlist">
           <button class="btn btn-primary">
             Back to Contact List
           </button>
