@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
+import React, { useState } from 'react';
+import 'src/App.css';
 
 const App = () => {
   const [todos, setTodos] = useState([]);
@@ -7,30 +7,14 @@ const App = () => {
   const [todoEditing, setTodoEditing] = useState(null);
   const [editingText, setEditingText] = useState("");
 
-  useEffect(() => {
-    const json = localStorage.getItem("todos");
-    const loadedTodos = JSON.parse(json);
-    console.log('1st useEffect');
-
-    if (loadedTodos) {
-      setTodos(loadedTodos);
-    }
-  }, []);
-
-  useEffect(() => {
-    const json = JSON.stringify(todos);
-    console.log('2st useEffect');
-    localStorage.setItem("todos", json);
-  }, [todos]);
-
   function handleSubmit(e) {
     e.preventDefault();
-
     const newTodo = {
       id: Math.random(),
       text: todo,
       completed: false,
     };
+    console.log(todos)
     setTodos([...todos].concat(newTodo));
     setTodo("");
   }
@@ -39,7 +23,6 @@ const App = () => {
     let updatedTodos = [...todos].filter((todo) => todo.id !== id);
     setTodos(updatedTodos);
   }
-
 
   function toggleComplete(id) {
     let updatedTodos = [...todos].map((todo) => {
