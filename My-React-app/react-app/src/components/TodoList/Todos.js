@@ -26,7 +26,7 @@ const Todos = ({ taskId, todos, setTodos, editTitle, deleteTodo, setEditText, ta
                         <input
                             type={"checkbox"}
                             id={todo.id}
-                            checked={taskId.value}
+                            checked={false}
                             onChange={(e) => handleSelect(e)}
                         />
                         <TodosList
