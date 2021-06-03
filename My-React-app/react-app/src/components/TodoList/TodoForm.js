@@ -14,7 +14,7 @@ const TodoForm = ({ addTodo, deleteSelect }) => {
     };
     return (
         <>
-            <form onSubmit={handleSubmit} >
+            <form >
                 <input
                     type={"text"}
                     placeholder={"Add a ToDo"}
@@ -24,6 +24,7 @@ const TodoForm = ({ addTodo, deleteSelect }) => {
                 <input
                     type={"submit"}
                     value={"Add"}
+                    onClick={handleSubmit}
                 />
                 <button
                     onClick={() => deleteSelect()}

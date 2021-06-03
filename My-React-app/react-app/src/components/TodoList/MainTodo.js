@@ -6,13 +6,14 @@ function MainApp() {
     const [todos, setTodos] = useState([]);
     const [editText, setEditText] = useState("");
     const [taskEdit, setTaskEdit] = useState(null);
-    const taskId = [
+    const [taskId, setTaskId] = useState([
         {
             value: false
-        }]
+        }
+    ])
+
     const addTodo = (todo) => {
-        console.log(...todos)
-        setTodos([...todos, { id: todos.length + 1, text: todo}]);
+        setTodos([...todos, { id: todos.length + 1, text: todo }])
     };
     const editTitle = (id) => {
         const updatedTask = todos.map((todo) => {
@@ -20,9 +21,10 @@ function MainApp() {
                 todo.text = editText;
                 console.log(todo.text);
             }
-            return todo;
+            return todo
         });
         setTodos(updatedTask);
+        setTaskId(updatedTask);
         setTaskEdit(null);
     }
     const deleteSelect = () => {
@@ -30,13 +32,10 @@ function MainApp() {
         setTodos(updatedTask)
     }
     const deleteTodo = (id) => {
-        if (isNaN(id)) {
-            setTodos([]);
-        }
-        else {
-            let updatedTask = todos.filter((todo) => todo.id !== id)
-            setTodos(updatedTask)
-        }
+            (isNaN(id)) ?
+            setTodos([])
+            :
+            setTodos(todos.filter((todo) => todo.id !== id))
     }
     return (
         <div >
@@ -50,14 +49,15 @@ function MainApp() {
                 deleteSelect={deleteSelect}
             />
             <Todos
-                setEditText={setEditText}
                 taskId={taskId}
-                taskEdit={taskEdit}
+                setTaskId={setTaskId}
                 todos={todos}
-                editTitle={editTitle}
                 setTodos={setTodos}
+                editTitle={editTitle}
                 deleteTodo={deleteTodo}
+                taskEdit={taskEdit}
                 setTaskEdit={setTaskEdit}
+                setEditText={setEditText}
             />
         </div>
     );

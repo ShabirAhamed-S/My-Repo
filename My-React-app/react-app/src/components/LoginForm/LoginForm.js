@@ -1,33 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
+import Field from './Field';
+import { title, pattern, validEmailRegex } from '../constants/constant'
 
 const LoginForm = () => {
-  const title = "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters";
-  const pattern = "(?=.*)(?=.*[a-z])(?=.*[A-Z]).{8,}";
-  const validEmailRegex = RegExp(
-    /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-  );
   const [values, setValue] = useState({
-    email: null,
-    password: null,
+    email: '',
+    password: '',
     errors: {
       email: '',
       password: '',
     },
   })
+  // check if email and password length is greater than 0  return true else true
   const validateForm = error => {
     let valid = true;
     Object.values(error).forEach(val => val.length > 0 && (valid = false));
     return valid;
   };
+  // Check email and password is valid or not
   const handleSubmit = event => {
     event.preventDefault();
-    if (validateForm(values.errors)) {
-
-      alert('Valid Form')
-    } else {
+    (validateForm(values.errors) && (values.email != '' && values.password != '')) ?
+      alert('Valid Form') :
       alert('Invalid Form')
-    }
   }
+  // When change of login email and password it checks is valid or not
   const handleChange = e => {
     const { name, value } = e.target
     let errors = values.errors;
@@ -50,36 +47,36 @@ const LoginForm = () => {
     setValue({ errors, [name]: value })
   }
   return (
-    < >
-      <form
-        onSubmit={handleSubmit}
+    <form
+      onSubmit={handleSubmit}
+    >
+      <Field
+        name={"email"}
+        label={"UserName:"}
+        type={'email'}
+        handleChange={handleChange}
+      />
+      <Field
+        name={"password"}
+        label={"Password:"}
+        type={"password"}
+        id={'show'}
+        title={title}
+        pattern={pattern}
+        handleChange={handleChange}
+      />
+      <input
+        type='checkbox'
+        // onChange={showText()}
+      />show password
+
+      <button
+        value={'Submit'}
+        type="submit"
       >
-        <label
-          name="email"
-        >UserName:</label>
-        <input
-          type='email'
-          name='email'
-          onChange={handleChange}
-          noValidate />
-        <label
-          name="password"
-        >Password:</label>
-        <input
-          type='password'
-          name='password'
-          title={title}
-          pattern={pattern}
-          onChange={handleChange}
-          noValidate />
-        <>
-          <button
-            value={'Submit'}
-            type="submit"
-          >Login</button>
-        </ >
-      </form>
-    </>
+        Login
+          </button>
+    </form>
   );
 };
 
